@@ -14,13 +14,15 @@ app.set('view engine', 'ejs');
 
 console.log("outside io");
 
+var usuarios  = [];
+
 io.on('connection', function(socket){
 
     console.log('Se ha conectado un usuario');
 
-  socket.on('connect user', function(user){
-    console.log("Usuario Conectado ");
-    io.emit('connect user', user);
+  socket.on('usuario nuevo', function(msg){
+    io.emit('usuario nuevo', msg);
+    usuarios.push (msg);
   });
 
 
@@ -29,7 +31,15 @@ io.on('connection', function(socket){
     io.emit('chat mensaje', msg);
   });
 
+  socket.on('usuarios conectados', function(msg){
+    console.log("Devolviendo los usuarios conectados");
+    io.emit('usuarios conectados', usuarios);
+  });
 
+  socket.on('disconnect', () => {
+    console.log('Un usuario se ha desconectado');
+    usuarios.pop();
+  });
 });
 
 http.listen(app.get('port'), function() {
