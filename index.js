@@ -35,6 +35,7 @@ io.on('connection', function(socket){
     io.emit('chat mensaje', msg);
     if(usuarios.length == 0){
       msg = "";
+      console.log("El chat esta vacio : " + msg)
     }
   });
 
