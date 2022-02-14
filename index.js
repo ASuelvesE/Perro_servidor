@@ -15,6 +15,7 @@ app.set('view engine', 'ejs');
 console.log("outside io");
 
 var usuarios  = [];
+console.log("Usuarios conectados: " + usuarios.length)
 
 io.on('connection', function(socket){
 
@@ -32,7 +33,9 @@ io.on('connection', function(socket){
   socket.on('chat mensaje', function(msg){
     console.log("Mensaje: " + msg);
     io.emit('chat mensaje', msg);
-
+    if(usuarios.length == 0){
+      msg = "";
+    }
   });
 
   socket.on('usuarios conectados', function(msg){
