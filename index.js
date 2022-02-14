@@ -23,17 +23,32 @@ io.on('connection', function(socket){
   socket.on('usuario nuevo', function(msg){
     io.emit('usuario nuevo', msg);
     usuarios.push (msg);
+    for (var valor of usuarios) {
+      console.log("Usuarios conectados: " + valor);
+    }
   });
 
 
   socket.on('chat mensaje', function(msg){
     console.log("Mensaje: " + msg);
     io.emit('chat mensaje', msg);
+
   });
 
   socket.on('usuarios conectados', function(msg){
     console.log("Devolviendo los usuarios conectados");
     io.emit('usuarios conectados', usuarios);
+    
+  });
+
+  socket.on('usuario desconectado', function(msg){
+    let posicion = usuarios.indexOf(msg);
+    usuarios.splice(posicion, 1);
+    console.log("Se ha eliminado del array a: " + msg);
+    for (var valor of usuarios) {
+      console.log("Usuarios conectados: " + valor);
+    }
+    
   });
 
   socket.on('disconnect', () => {
