@@ -48,6 +48,11 @@ io.on('connection', function(socket){
     for (var valor of usuarios) {
       console.log("Usuarios conectados: " + valor);
     }
+  });
+
+  socket.on('nuevo perro', function(perro,nombre){
+    console.log(nombre +" ha creado un nuevo perro llamado: " + perro);
+    io.emit('nuevo perro', perro,nombre);
     
   });
 
