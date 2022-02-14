@@ -53,7 +53,11 @@ io.on('connection', function(socket){
   socket.on('nuevo perro', function(perro,nombre){
     console.log(nombre +" ha creado un nuevo perro llamado: " + perro);
     io.emit('nuevo perro', perro,nombre);
-    
+  });
+
+  socket.on('evento chat', function(chat,usuario){
+    console.log(usuario+ " : " + chat);
+    io.emit('evento chat', chat,usuario);
   });
 
   socket.on('disconnect', () => {
